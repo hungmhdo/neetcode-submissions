@@ -1,0 +1,35 @@
+class Solution:
+    def productExceptSelf(self, nums: List[int]) -> List[int]:
+        # array a and array b
+        # array a[i] = product of all elements from 0 -> i
+        # array b[i] = product of all elements from i -> len(nums)
+        # n = len(nums)
+        # a = [nums[0]] * n
+        # b = [nums[n-1]] * n
+
+        # for i in range(1, n):
+        #     a[i] = a[i-1] * nums[i]
+        #     b[n-i-1] = b[n-i] * nums[n-i-1]
+        
+        # a = [1] + a + [1]
+        # b = [1] + b + [1]
+        # product = []
+        
+        # for i in range(1,n+1):
+        #     product.append(a[i-1] * b[i+1])
+        # return product
+
+        n = len(nums)
+        ans = [1] * n
+
+        prefix = 1
+        for i in range(0, n):
+            ans[i] = prefix
+            prefix *= nums[i]
+        
+        postfix = 1
+        for i in range(n-1, -1, -1):
+            ans[i] = ans[i] * postfix
+            postfix *= nums[i]
+        
+        return ans
